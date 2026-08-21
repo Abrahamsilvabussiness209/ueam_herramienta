@@ -1,0 +1,181 @@
+/* Estilos globales del proyecto UEAM */
+
+/* --- RESET Y ESTILOS GENERALES --- */
+* {
+                              margin: 0;
+                              padding: 0;
+                              box-sizing: border-box;
+                              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+                              background-color: #f4f6f9;
+                              color: #333;
+}
+
+/* --- ESTILOS DE LOGIN --- */
+.login-body {
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                              min-height: 100vh;
+                              background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.login-card {
+                              background: #ffffff;
+                              padding: 2.5rem;
+                              border-radius: 12px;
+                              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                              width: 100%;
+                              max-width: 420px;
+}
+
+.login-card h2 {
+                              color: #1e3c72;
+                              margin-bottom: 0.5rem;
+                              font-size: 1.5rem;
+                              text-align: center;
+}
+
+.subtitle {
+                              font-size: 0.85rem;
+                              color: #666;
+                              text-align: center;
+                              margin-bottom: 1.5rem;
+}
+
+.role-selector {
+                              display: flex;
+                              justify-content: space-around;
+                              background: #eef2f5;
+                              padding: 0.5rem;
+                              border-radius: 8px;
+                              margin-bottom: 1.5rem;
+                              font-size: 0.85rem;
+}
+
+.role-selector label {
+                              cursor: pointer;
+                              font-weight: 500;
+}
+
+.form-group {
+                              margin-bottom: 1.2rem;
+}
+
+.form-group label {
+                              display: block;
+                              font-size: 0.9rem;
+                              margin-bottom: 0.4rem;
+                              font-weight: 600;
+}
+
+.form-group input {
+                              width: 100%;
+                              padding: 0.7rem;
+                              border: 1px solid #ccc;
+                              border-radius: 6px;
+                              outline: none;
+}
+
+.info-box {
+                              background-color: #e3f2fd;
+                              border-left: 4px solid #2196f3;
+                              padding: 0.8rem;
+                              border-radius: 4px;
+                              margin-bottom: 1.5rem;
+                              font-size: 0.85rem;
+}
+
+.btn-primary {
+                              width: 100%;
+                              padding: 0.8rem;
+                              background-color: #1e3c72;
+                              color: white;
+                              border: none;
+                              border-radius: 6px;
+                              font-size: 1rem;
+                              font-weight: bold;
+                              cursor: pointer;
+                              transition: background 0.3s;
+}
+
+.btn-primary:hover {
+                              background-color: #2a5298;
+}
+
+.error-msg {
+                              color: #d32f2f;
+                              font-size: 0.85rem;
+                              margin-top: 1rem;
+                              text-align: center;
+}
+
+/* --- ESTILOS DEL DASHBOARD --- */
+.header-bar {
+                              background-color: #1e3c72;
+                              color: white;
+                              padding: 1rem 2rem;
+                              display: flex;
+                              justify-content: space-between;
+                              align-items: center;
+}
+
+.user-panel {
+                              display: flex;
+                              align-items: center;
+                              gap: 1rem;
+}
+
+.btn-logout {
+                              background-color: #e74c3c;
+                              color: white;
+                              border: none;
+                              padding: 0.5rem 1rem;
+                              border-radius: 4px;
+                              cursor: pointer;
+}
+
+.dashboard-container {
+                              max-width: 1100px;
+                              margin: 2rem auto;
+                              padding: 0 1rem;
+}
+
+.modules-grid {
+                              display: grid;
+                              grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                              gap: 1.5rem;
+                              margin-top: 1.5rem;
+}
+
+.module-card {
+                              background: white;
+                              padding: 1.5rem;
+                              border-radius: 10px;
+                              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                              border-top: 4px solid #1e3c72;
+}
+
+.module-card h3 {
+                              font-size: 1.1rem;
+                              margin-bottom: 0.5rem;
+}
+
+.module-card p {
+                              font-size: 0.85rem;
+                              color: #666;
+                              margin-bottom: 1.2rem;
+}
+
+.module-card .btn {
+                              display: inline-block;
+                              background-color: #1e3c72;
+                              color: white;
+                              padding: 0.5rem 1rem;
+                              border-radius: 4px;
+                              text-decoration: none;
+                              border: none;
+                              cursor: pointer;
+}

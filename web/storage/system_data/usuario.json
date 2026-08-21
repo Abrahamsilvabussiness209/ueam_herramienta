@@ -1,0 +1,37 @@
+[
+                              {
+                                                            "id": 1,
+                                                            "usuario": "admin",
+                                                            "password_hash": "admin123",
+                                                            "nombre": "Administrador Sistema",
+                                                            "rol": "Admin",
+                                                            "permisos": [
+                                                                                          "diagnostico",
+                                                                                          "documental",
+                                                                                          "seguridad",
+                                                                                          "codigo"
+                                                            ]
+                              },
+                              {
+                                                            "id": 2,
+                                                            "usuario": "tecnico_secretaria",
+                                                            "password_hash": "user123",
+                                                            "nombre": "Técnico / Secretaría",
+                                                            "rol": "TecnicoSecretaria",
+                                                            "permisos": [
+                                                                                          "diagnostico",
+                                                                                          "documental",
+                                                                                          "seguridad"
+                                                            ]
+                              },
+                              {
+                                                            "id": 3,
+                                                            "usuario": "estudiante",
+                                                            "password_hash": "",
+                                                            "nombre": "Estudiante UEAM",
+                                                            "rol": "Estudiante",
+                                                            "permisos": [
+                                                                                          "diagnostico"
+                                                            ]
+                              }
+]

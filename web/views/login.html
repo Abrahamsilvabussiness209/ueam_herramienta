@@ -1,0 +1,91 @@
+<!-- Vista de Inicio de Sesión -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+                              <meta charset="UTF-8">
+                              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                              <title>UEAM - Inicio de Sesión</title>
+                              <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="login-body">
+
+                              <div class="login-card">
+                                                            <h2>Herramienta Tecnológica UEAM</h2>
+                                                            <p class="subtitle">Selecciona o ingresa con tu perfil para
+                                                                                          continuar</p>
+
+                                                            <!-- Selección rápida de perfil para facilitar la lógica -->
+                                                            <div class="role-selector">
+                                                                                          <label>
+                                                                                                                        <input type="radio" name="tipo_usuario"
+                                                                                                                                                      value="estudiante"
+                                                                                                                                                      id="radio-estudiante"
+                                                                                                                                                      checked>
+                                                                                                                        Estudiante
+                                                                                          </label>
+                                                                                          <label>
+                                                                                                                        <input type="radio" name="tipo_usuario"
+                                                                                                                                                      value="tecnico_secretaria"
+                                                                                                                                                      id="radio-tecnico">
+                                                                                                                        Técnico
+                                                                                                                        /
+                                                                                                                        Secretaría
+                                                                                          </label>
+                                                                                          <label>
+                                                                                                                        <input type="radio" name="tipo_usuario"
+                                                                                                                                                      value="admin"
+                                                                                                                                                      id="radio-admin">
+                                                                                                                        Administrador
+                                                                                          </label>
+                                                            </div>
+
+                                                            <form id="form-login">
+                                                                                          <!-- Campo Usuario -->
+                                                                                          <div class="form-group" id="group-usuario"
+                                                                                                                        style="display: none;">
+                                                                                                                        <label
+                                                                                                                                                      for="input-usuario">Usuario</label>
+                                                                                                                        <input type="text" id="input-usuario"
+                                                                                                                                                      placeholder="Ej: admin o tecnico_secretaria">
+                                                                                          </div>
+
+                                                                                          <!-- Campo Contraseña -->
+                                                                                          <div class="form-group" id="group-password"
+                                                                                                                        style="display: none;">
+                                                                                                                        <label
+                                                                                                                                                      for="input-password">Contraseña</label>
+                                                                                                                        <input type="password" id="input-password"
+                                                                                                                                                      placeholder="••••••••">
+                                                                                          </div>
+
+                                                                                          <!-- Mensaje Informativo para el Estudiante -->
+                                                                                          <div class="info-box"
+                                                                                                                        id="info-estudiante">
+                                                                                                                        <p>💡 <em>El perfil de Estudiante no requiere contraseña y solo
+                                                                                                                                                                                    tiene
+                                                                                                                                                                                    acceso
+                                                                                                                                                                                    al
+                                                                                                                                                                                    Módulo
+                                                                                                                                                                                    de
+                                                                                                                                                                                    Diagnóstico.</em>
+                                                                                                                        </p>
+                                                                                          </div>
+
+                                                                                          <!-- Botón de Envío -->
+                                                                                          <button type="submit" class="btn-primary"
+                                                                                                                        id="btn-ingresar">Ingresar
+                                                                                                                        como
+                                                                                                                        Estudiante</button>
+                                                            </form>
+
+                                                            <p id="error-message" class="error-msg"></p>
+                              </div>
+
+                              <!-- Script asociado -->
+                              <script src="../js/auth_ui.js"></script>
+</body>
+
+</html>

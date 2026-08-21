@@ -1,0 +1,87 @@
+<!-- Vista del Panel Principal -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+                              <meta charset="UTF-8">
+                              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                              <title>UEAM | Panel Principal</title>
+                              <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+                              <header class="header-bar">
+                                                            <h1>Herramienta Tecnológica UEAM</h1>
+                                                            <div class="user-panel">
+                                                                                          <span id="user-display">Cargando
+                                                                                                                        datos...</span>
+                                                                                          <button onclick="cerrarSesion()"
+                                                                                                                        class="btn-logout">Cerrar
+                                                                                                                        Sesión</button>
+                                                            </div>
+                              </header>
+
+                              <main class="dashboard-container">
+                                                            <h2>Módulos Disponibles</h2>
+
+                                                            <div class="modules-grid">
+                                                                                          <!-- Módulo 1: Diagnóstico -->
+                                                                                          <div class="module-card"
+                                                                                                                        id="card-diagnostico">
+                                                                                                                        <h3>Mantenimiento Lógico y Diagnóstico
+                                                                                                                        </h3>
+                                                                                                                        <p>Diagnóstico preventivo del estado
+                                                                                                                                                      del
+                                                                                                                                                      computador.
+                                                                                                                        </p>
+                                                                                                                        <a href="fn_diagnostico.html"
+                                                                                                                                                      class="btn">Entrar</a>
+                                                                                          </div>
+
+                                                                                          <!-- Módulo 2: Gestión Documental -->
+                                                                                          <div class="module-card"
+                                                                                                                        id="card-documental">
+                                                                                                                        <h3>Gestión Documental
+                                                                                                                        </h3>
+                                                                                                                        <p>Registro y consulta de archivos
+                                                                                                                                                      institucionales.
+                                                                                                                        </p>
+                                                                                                                        <a href="fn_documental.html"
+                                                                                                                                                      class="btn">Entrar</a>
+                                                                                          </div>
+
+                                                                                          <!-- Módulo 3: Seguridad -->
+                                                                                          <div class="module-card"
+                                                                                                                        id="card-seguridad">
+                                                                                                                        <h3>Seguridad y Mantenimiento
+                                                                                                                        </h3>
+                                                                                                                        <p>Gestión de bitácoras y respaldos
+                                                                                                                                                      del
+                                                                                                                                                      sistema.
+                                                                                                                        </p>
+                                                                                                                        <a href="fn_seguridad.html"
+                                                                                                                                                      class="btn">Entrar</a>
+                                                                                          </div>
+
+                                                                                          <!-- Módulo 4: Código (Exclusivo Admin) -->
+                                                                                          <div class="module-card"
+                                                                                                                        id="card-codigo">
+                                                                                                                        <h3>Inspección de Código Fuente
+                                                                                                                        </h3>
+                                                                                                                        <p>Acceso administrativo a la estructura
+                                                                                                                                                      del
+                                                                                                                                                      software.
+                                                                                                                        </p>
+                                                                                                                        <button class="btn"
+                                                                                                                                                      onclick="alert('Acceso concedido al código')">Ver
+                                                                                                                                                      Código</button>
+                                                                                          </div>
+                                                            </div>
+                              </main>
+
+                              <!-- El script se carga después de existir el HTML -->
+                              <script src="../js\main.js"></script>
+</body>
+
+</html>
