@@ -79,4 +79,4 @@ Actualmente, la administración de las estaciones de trabajo y el control de dir
 
 1. **Clonar repositorio:**
    ```bash
-   git clone [https://github.com/Abrahamsilvabussiness209/ueam-herramienta.git](https://github.com/Abrahamsilvabussiness209/ueam-herramienta.git)
+   git clone [https://github.com/Abrahamsilvabussiness209/ueam_herramienta.git](https://github.com/Abrahamsilvabussiness209/ueam_herramienta.git)
