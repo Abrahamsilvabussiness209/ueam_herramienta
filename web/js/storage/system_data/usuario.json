@@ -5,23 +5,25 @@
                                                             "password_hash": "admin123",
                                                             "nombre": "Administrador Sistema",
                                                             "rol": "Admin",
+                                                            
                                                             "permisos": [
-                                                                                          "diagnostico",
-                                                                                          "documental",
-                                                                                          "seguridad",
-                                                                                          "codigo"
+                                                            "diagnostico",
+                                                            "documental",
+                                                            "seguridad",
+                                                            "codigo"
                                                             ]
                               },
                               {
                                                             "id": 2,
-                                                            "usuario": "tecnico_secretaria",
-                                                            "password_hash": "user123",
+                                                            "usuario": "secretaria",
+                                                            "password_hash": "userueam123",
                                                             "nombre": "Técnico / Secretaría",
-                                                            "rol": "TecnicoSecretaria",
+                                                            "rol": "Tecnico - Secretaria",
+                                                            
                                                             "permisos": [
-                                                                                          "diagnostico",
-                                                                                          "documental",
-                                                                                          "seguridad"
+                                                            "diagnostico",
+                                                            "documental",
+                                                            "seguridad"
                                                             ]
                               },
                               {
@@ -30,8 +32,9 @@
                                                             "password_hash": "",
                                                             "nombre": "Estudiante UEAM",
                                                             "rol": "Estudiante",
+                                                            
                                                             "permisos": [
-                                                                                          "diagnostico"
+                                                            "diagnostico"
                                                             ]
                               }
 ]

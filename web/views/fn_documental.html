@@ -1,1 +1,64 @@
 <!-- Vista del Módulo de Gestión Documental -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>UEAM - Gestión Documental</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/fn_documental.css">
+
+</head>
+<body>
+    <header>
+        <h2>Módulo: Gestión Documental</h2>
+        <a href="dashboard.html">Volver al Dashboard</a>
+    </header>
+
+    <main class="container">
+        <!-- Formulario para agregar registros -->
+        <form id="documento-form" class="card">
+            <h3>Registrar / Adjuntar Documento</h3>
+            
+            <div class="form-group">
+                <label for="doc_nombre">Nombre o Título del Documento:</label>
+                <input type="text" id="doc_nombre" required placeholder="Ej. Informe Técnico de Inventario">
+            </div>
+
+            <div class="form-group">
+                <label for="doc_categoria">Categoría:</label>
+                <select id="doc_categoria">
+                    <option value="Administrativo">Administrativo</option>
+                    <option value="Académico">Académico</option>
+                    <option value="Mantenimiento">Mantenimiento / Técnico</option>
+                    <option value="Soporte">Soporte</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary">Registrar Documento</button>
+        </form>
+
+        <!-- Tabla de documentos guardados -->
+        <section class="card">
+            <h3>Archivos Registrados en el Sistema</h3>
+            <table border="1" id="tabla-docs" style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Fecha Registro</th>
+                        <th>Registrado Por</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-documentos">
+                    <!-- Contenido cargado dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="/eel.js"></script>
+    <script src="../js/documental_ui.js"></script>
+</body>
+</html>

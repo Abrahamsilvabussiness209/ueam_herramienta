@@ -1,1 +1,32 @@
 <!-- Vista del Módulo de Seguridad y Mantenimiento -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>UEAM - Módulo de Seguridad</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/fn_seguridad.css">
+
+</head>
+<body>
+    <header>
+        <h2>Módulo: Seguridad y Respaldos</h2>
+        <a href="dashboard.html">Volver al Dashboard</a>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h3>Copias de Seguridad de la Plataforma</h3>
+            <p>Al hacer clic en el botón, el sistema creará un archivo comprimido con todos los datos locales (`JSON`, configuraciones y registros de mantenimientos).</p>
+            
+            <button id="btn-generar-backup" class="btn-primary">Generar Backup Ahora</button>
+            
+            <div id="resultado-backup" style="margin-top: 15px; font-weight: bold;"></div>
+        </section>
+    </main>
+
+    <script src="/eel.js"></script>
+    <script src="../js/seguridad_ui.js"></script>
+</body>
+</html>

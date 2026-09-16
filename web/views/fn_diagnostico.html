@@ -1,1 +1,110 @@
-<!-- Vista del Módulo de Diagnóstico -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UEAM - Mantenimiento Lógico</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/fn_diagnostico.css">
+</head>
+<body>
+    <div class="form-container">
+        <div class="page-header">
+            <h2>Módulo: Diagnóstico y Mantenimiento de Software</h2>
+            <a href="dashboard.html" class="link-back">← Volver al Dashboard</a>
+        </div>
+
+        <div class="form-card">
+            <h3>Control de Diagnóstico Lógico de Hardware y Sistema</h3>
+            
+            <!-- PASO 1: CAPTURA DE DATOS -->
+            <div id="fase-diagnostico">
+                <h4 class="section-title">Paso 1: Captura de Variables del Sistema Operativo</h4>
+                <div class="form-group">
+                    <label for="codigo_equipo">Código / Nombre del Equipo:</label>
+                    <input type="text" id="codigo_equipo" required placeholder="Ej. PC-LAB-01">
+                </div>
+
+                <div class="form-group">
+                    <label for="sistema_operativo">Sistema Operativo:</label>
+                    <input type="text" id="sistema_operativo" required placeholder="Ej. Windows 7">
+                </div>
+
+                <button type="button" id="btn-diagnosticar" class="btn-secondary">Escanear Sistema</button>
+                
+                <div id="loading-scan" class="loading-msg" style="display: none;">
+                    Analizando consumo de RAM, espacio en disco, procesos y temporales...
+                </div>
+            </div>
+
+            <!-- PASO 2: PANEL DE COMPARACIÓN -->
+            <form id="diagnostico-form" style="display: none;">
+                <h4 class="section-title">Paso 2: Evaluación por Umbrales y Métricas (Antes vs Después)</h4>
+                
+                <div id="status-banner" class="status-alert">
+                    <span id="status-text">Analizando...</span>
+                </div>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Variable del Sistema</th>
+                            <th>Estado ANTES</th>
+                            <th>Estado DESPUÉS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Memoria RAM Usada</strong></td>
+                            <td id="ram-antes">-</td>
+                            <td id="ram-despues" class="highlight">-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disco Duro Libre</strong></td>
+                            <td id="disco-antes">-</td>
+                            <td id="disco-despues" class="highlight">-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Archivos Caché / Temporales</strong></td>
+                            <td id="cache-antes">-</td>
+                            <td id="cache-despues" class="highlight">-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Procesos en Segundo Plano</strong></td>
+                            <td id="procesos-antes">-</td>
+                            <td id="procesos-despues" class="highlight">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="section-title">Paso 3: Acciones de Mantenimiento Lógico</h4>
+                
+                <div class="form-group">
+                    <label for="tipo_mantenimiento">Tipo de Mantenimiento a Ejecutar:</label>
+                    <select id="tipo_mantenimiento">
+                        <option value="Preventivo">Preventivo (Limpieza de temporales, purga de caché, optimización de RAM)</option>
+                        <option value="Correctivo">Correctivo (Cierre forzado de procesos colgados, depuración de registros)</option>
+                        <option value="Preventivo y Correctivo Integrado">Preventivo y Correctivo Integrado</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="observaciones">Observaciones Técnicas del Diagnóstico:</label>
+                    <textarea id="observaciones" rows="3" placeholder="Detalle hallazgos adicionales..."></textarea>
+                </div>
+
+                <button type="button" id="btn-mantenimiento" class="btn-primary">Ejecutar Mantenimiento Lógico</button>
+
+                <!-- Panel de finalización con opción de PDF opcional -->
+                <div id="acciones-finales" style="display: none; margin-top: 15px; text-align: center;">
+                    <button type="submit" id="btn-guardar" class="btn-primary" style="background-color: #27ae60; margin-bottom: 10px;">Finalizar</button>
+                    <button type="button" id="btn-exportar-pdf" class="btn-secondary" style="background-color: #e74c3c;">📄 Exportar Reporte PDF (Opcional)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/eel.js"></script>
+    <script src="../js/diagnostico_ui.js"></script>
+</body>
+</html>

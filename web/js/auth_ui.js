@@ -72,11 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         rol: "Admin",
                         permisos: ["diagnostico", "documental", "seguridad", "codigo"]
                     };
-                } else if (userVal === "tecnico_secretaria" && passVal === "user123") {
+                } else if (userVal === "secretaria" && passVal === "userueam123") {
                     sesionData = {
-                        usuario: "tecnico_secretaria",
-                        nombre: "Técnico / Secretaría",
-                        rol: "TecnicoSecretaria",
+                        usuario: "ecretaria",
+                        nombre: "Secretaría",
+                        rol: "Tecnico - Secretaria",
                         permisos: ["diagnostico", "documental", "seguridad"]
                     };
                 } else {

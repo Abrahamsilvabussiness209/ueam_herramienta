@@ -7,15 +7,15 @@
                               <meta charset="UTF-8">
                               <title>UEAM - Redireccionando...</title>
                               <script>
-                                                            // Si hay usuario redirige al Dashboard, si no, al Login
-                                                            document.addEventListener('DOMContentLoaded', () => {
-                                                                                          const sesion = localStorage.getItem('session_user');
-                                                                                          if (sesion) {
-                                                                                                                        window.location.href = 'dashboard.html';
-                                                                                          } else {
-                                                                                                                        window.location.href = 'login.html';
-                                                                                          }
-                                                            });
+                              // Si hay usuario redirige al Dashboard, si no, al Login
+                              document.addEventListener('DOMContentLoaded', () => {
+                              const sesion = localStorage.getItem('session_user');
+                                if (sesion) {
+                              window.location.href = 'dashboard.html';
+                              } else {
+                                      window.location.href = 'login.html';
+                              }
+                              });
                               </script>
 </head>
 
