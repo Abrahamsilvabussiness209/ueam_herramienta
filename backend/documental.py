@@ -50,7 +50,7 @@ def registrar_documento(nombre_doc: str, Categoria: str, usuario_carga: str):
 
     documentos.append(nuevo_doc)
 
-    # Escritura atómica anti-apagones
+    # Escritura
     temp_file = f"{META_FILE}.tmp"
     with open(temp_file, 'w', encoding='utf-8') as f:
         json.dump(documentos, f, indent=4, ensure_ascii=False)

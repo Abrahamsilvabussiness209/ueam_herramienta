@@ -1,0 +1,13 @@
+{
+    "app_name": "UEAM Herramienta de Mantenimiento",
+    "version": "1.0.0",
+    "theme": "default",
+    "max_upload_size_mb": 25,
+    "debug_mode": true,
+    "system_thresholds": {
+        "ram_warning": 75,
+        "ram_critical": 90,
+        "disk_warning": 80,
+        "disk_critical": 95
+    }
+}

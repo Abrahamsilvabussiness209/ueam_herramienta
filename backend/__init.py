@@ -1,6 +1,5 @@
 # Inicialización del paquete backend
 
-# backend/__init__.py
 """
 Módulo principal del backend de la herramienta UEAM.
 Gestiona autenticación, diagnóstico, documentos, seguridad y reportes PDF.
