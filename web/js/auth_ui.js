@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                 } else if (userVal === "secretaria" && passVal === "userueam123") {
                     sesionData = {
-                        usuario: "ecretaria",
+                        usuario: "secretaria",
                         nombre: "Secretaría",
                         rol: "Tecnico - Secretaria",
                         permisos: ["diagnostico", "documental", "seguridad"]
