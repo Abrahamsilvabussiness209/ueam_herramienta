@@ -1,4 +1,5 @@
-# backend/pdf_generator.py
+# Módulo generador de pdf
+
 import os
 from datetime import datetime
 

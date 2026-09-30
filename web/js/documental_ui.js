@@ -1,7 +1,5 @@
 // Lógica de interfaz para Gestión Documental
 
-// Lógica de interfaz para Gestión Documental
-
 document.addEventListener("DOMContentLoaded", () => {
     cargarListaDocumentos();
 
