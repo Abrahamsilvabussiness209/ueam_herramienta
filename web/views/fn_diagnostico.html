@@ -11,7 +11,7 @@
     <div class="form-container">
         <div class="page-header">
             <h2>Módulo: Diagnóstico y Mantenimiento de Software</h2>
-            <a href="dashboard.html" class="link-back">← Volver al Dashboard</a>
+            <a href="#" id="link-volver" class="link-back">← Volver al Dashboard</a>
         </div>
 
         <div class="form-card">
@@ -27,18 +27,19 @@
 
                 <div class="form-group">
                     <label for="sistema_operativo">Sistema Operativo:</label>
-                    <input type="text" id="sistema_operativo" required placeholder="Ej. Windows 7">
+                    <input type="text" id="sistema_operativo" required placeholder="Ej. Windows 10 / Ubuntu">
                 </div>
 
                 <button type="button" id="btn-diagnosticar" class="btn-secondary">Escanear Sistema</button>
                 
                 <div id="loading-scan" class="loading-msg" style="display: none;">
-                    Analizando consumo de RAM, espacio en disco, procesos y temporales...
+                    <div class="spinner"></div>
+                    <span>Analizando consumo de RAM, espacio en disco, procesos y temporales... Esto puede tomar unos segundos.</span>
                 </div>
             </div>
 
             <!-- PASO 2: PANEL DE COMPARACIÓN -->
-            <form id="diagnostico-form" style="display: none;">
+            <div id="diagnostico-form" style="display: none;">
                 <h4 class="section-title">Paso 2: Evaluación por Umbrales y Métricas (Antes vs Después)</h4>
                 
                 <div id="status-banner" class="status-alert">
@@ -97,10 +98,11 @@
 
                 <!-- Panel de finalización con opción de PDF opcional -->
                 <div id="acciones-finales" style="display: none; margin-top: 15px; text-align: center;">
-                    <button type="submit" id="btn-guardar" class="btn-primary" style="background-color: #27ae60; margin-bottom: 10px;">Finalizar</button>
+                    <button type="button" id="btn-guardar" class="btn-primary" style="background-color: #27ae60; margin-bottom: 10px;">Finalizar y Volver al Dashboard</button>
+                    <a href="dashboard.html" id="link-volver" class="link-back">← Volver al Dashboard</a>
                     <button type="button" id="btn-exportar-pdf" class="btn-secondary" style="background-color: #e74c3c;">📄 Exportar Reporte PDF (Opcional)</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

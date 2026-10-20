@@ -1,10 +1,11 @@
-// Logica de la interfaz de diagnostico
-
+// Logica de la interfaz de diagnostico optimizada
 
 document.addEventListener("DOMContentLoaded", () => {
     const btnDiagnosticar = document.getElementById("btn-diagnosticar");
     const btnMantenimiento = document.getElementById("btn-mantenimiento");
     const btnExportarPDF = document.getElementById("btn-exportar-pdf");
+    const btnGuardar = document.getElementById("btn-guardar");
+    const linkVolver = document.getElementById("link-volver");
     const accionesFinales = document.getElementById("acciones-finales");
     const loadingScan = document.getElementById("loading-scan");
     const formMantenimiento = document.getElementById("diagnostico-form");
@@ -16,16 +17,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let metricasAntesGlobal = null;
     let datosMantenimientoUltimo = null;
 
+    // Función segura y definitiva para retornar al Dashboard usando la ruta absoluta del servidor local
+    function regresarDashboard(e) {
+        if (e) e.preventDefault();
+        window.location.href = "/views/dashboard.html";
+    }
+
+    if (linkVolver) {
+        linkVolver.addEventListener("click", regresarDashboard);
+    }
+
     // Escaneo de Métricas (ANTES)
     btnDiagnosticar.addEventListener("click", () => {
         const codigo = codigoInput.value.trim();
-        if (!codigo) {
-            alert("Por favor, ingrese el código del equipo.");
+        const so = sistemaOperativoInput.value.trim();
+        
+        if (!codigo || !so) {
+            alert("Por favor, ingrese el código del equipo y el sistema operativo.");
             return;
         }
 
         btnDiagnosticar.style.display = "none";
-        loadingScan.style.display = "block";
+        loadingScan.style.display = "flex";
 
         eel.escanear_sistema(codigo)((respuesta) => {
             loadingScan.style.display = "none";
@@ -34,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 metricasAntesGlobal = respuesta.antes;
                 const m = respuesta.antes;
 
-                // Formateo dinámico con redondeo a 1 decimal
                 const ramFormateada = Number(m.ram_uso_pct).toFixed(1);
 
                 document.getElementById("ram-antes").innerText = `${ramFormateada}%`;
@@ -64,19 +76,23 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        btnMantenimiento.disabled = true;
+        btnMantenimiento.innerText = "Optimizando sistema y purgando caché...";
+
         datosMantenimientoUltimo = {
             codigo_equipo: codigoInput.value,
             sistema_operativo: sistemaOperativoInput.value,
             tipo_mantenimiento: document.getElementById("tipo_mantenimiento").value,
-            observaciones: document.getElementById("observaciones").value || "Sin observaciones adicionaes.",
+            observaciones: document.getElementById("observaciones").value || "Sin observaciones adicionales.",
             metricas_antes: metricasAntesGlobal
         };
 
         eel.procesar_mantenimiento(datosMantenimientoUltimo)((respuesta) => {
+            btnMantenimiento.disabled = false;
+            btnMantenimiento.innerText = "Ejecutar Mantenimiento Lógico";
+
             if (respuesta && respuesta.exito) {
                 const d = respuesta.despues;
-
-                // Redondeo de precisión para evitar problemas flotantes en JS
                 const ramDespuesFormateada = Number(d.ram_uso_pct).toFixed(1);
 
                 document.getElementById("ram-despues").innerText = `${ramDespuesFormateada}%`;
@@ -109,10 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Guardar Reporte Histórico y Reiniciar
-    formMantenimiento.addEventListener("submit", (e) => {
-        e.preventDefault();
-        alert("Mantenimiento registrado en el historial del sistema.");
-        window.location.reload();
-    });
+    // Guardar Histórico de forma limpia y retornar al Dashboard
+    if (btnGuardar) {
+        btnGuardar.addEventListener("click", (e) => {
+            e.preventDefault();
+            alert("Mantenimiento registrado en el historial del sistema.");
+            regresarDashboard();
+        });
+    }
 });
