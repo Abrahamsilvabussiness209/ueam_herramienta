@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UEAM - Mantenimiento Lógico</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/fn_diagnostico.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fn_diagnostico.css">
 </head>
 <body>
     <div class="form-container">
         <div class="page-header">
             <h2>Módulo: Diagnóstico y Mantenimiento de Software</h2>
-            <a href="#" id="link-volver" class="link-back">← Volver al Dashboard</a>
+            <a href="/views/dashboard.html" id="link-volver" class="link-back btn-back-action">← Volver al Dashboard</a>
         </div>
 
         <div class="form-card">
             <h3>Control de Diagnóstico Lógico de Hardware y Sistema</h3>
             
-            <!-- PASO 1: CAPTURA DE DATOS -->
             <div id="fase-diagnostico">
                 <h4 class="section-title">Paso 1: Captura de Variables del Sistema Operativo</h4>
                 <div class="form-group">
@@ -38,7 +37,6 @@
                 </div>
             </div>
 
-            <!-- PASO 2: PANEL DE COMPARACIÓN -->
             <div id="diagnostico-form" style="display: none;">
                 <h4 class="section-title">Paso 2: Evaluación por Umbrales y Métricas (Antes vs Después)</h4>
                 
@@ -81,7 +79,7 @@
                 <h4 class="section-title">Paso 3: Acciones de Mantenimiento Lógico</h4>
                 
                 <div class="form-group">
-                    <label for="tipo_mantenimiento">Tipo de Mantenimiento a Ejecutar:</label>
+                    <label for="tipo_manten_miento">Tipo de Mantenimiento a Ejecutar:</label>
                     <select id="tipo_mantenimiento">
                         <option value="Preventivo">Preventivo (Limpieza de temporales, purga de caché, optimización de RAM)</option>
                         <option value="Correctivo">Correctivo (Cierre forzado de procesos colgados, depuración de registros)</option>
@@ -105,6 +103,6 @@
     </div>
 
     <script src="/eel.js"></script>
-    <script src="../js/diagnostico_ui.js"></script>
+    <script src="/js/diagnostico_ui.js"></script>
 </body>
 </html>

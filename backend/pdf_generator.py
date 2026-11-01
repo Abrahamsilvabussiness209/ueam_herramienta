@@ -1,5 +1,3 @@
-# Módulo generador de pdf
-
 import os
 from datetime import datetime
 
@@ -16,18 +14,25 @@ except ImportError:
 
 def generar_pdf_diagnostico(datos_diag: dict) -> dict:
     """
-    Genera un archivo PDF con el reporte técnico del mantenimiento/diagnóstico.
+    Genera un archivo PDF (o TXT de respaldo) con el reporte técnico del mantenimiento/diagnóstico
+    directamente en la carpeta Descargas del usuario.
     """
     if not isinstance(datos_diag, dict):
         datos_diag = {}
 
-    output_dir = os.path.join(os.path.dirname(__file__), '..', 'storage', 'documentos')
+    # Apuntar directamente a la carpeta Descargas del usuario de forma multiplataforma
+    output_dir = os.path.join(os.path.expanduser("~"), "Downloads")
     if not os.path.exists(output_dir):
         os.makedirs(output_dir, exist_ok=True)
 
     codigo = datos_diag.get('codigo_equipo', 'EQ')
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    filename = f"Reporte_Mantenimiento_{codigo}_{timestamp}.pdf"
+    
+    if REPORTLAB_AVAILABLE:
+        filename = f"Reporte_Mantenimiento_{codigo}_{timestamp}.pdf"
+    else:
+        filename = f"Reporte_Mantenimiento_{codigo}_{timestamp}.txt"
+        
     filepath = os.path.join(output_dir, filename)
 
     if REPORTLAB_AVAILABLE:
@@ -73,24 +78,32 @@ def generar_pdf_diagnostico(datos_diag: dict) -> dict:
             story.append(t)
             doc.build(story)
 
-            return {"exito": True, "ruta": filepath, "nombre_archivo": filename}
+            # IMPORTANTE: Se incluye tanto 'ruta' como 'ruta_pdf' para compatibilidad total con el frontend
+            return {
+                "exito": True,
+                "ruta": filepath,
+                "ruta_pdf": filepath,
+                "nombre_archivo": filename,
+                "mensaje": "Reporte exportado con éxito."
+            }
 
         except Exception as e:
             return {"exito": False, "mensaje": f"Error compilando PDF: {str(e)}"}
     else:
         # Fallback en texto si reportlab no está instalado
-        txt_path = filepath.replace(".pdf", ".txt")
         try:
-            with open(txt_path, "w", encoding="utf-8") as f:
+            with open(filepath, "w", encoding="utf-8") as f:
                 f.write("=== REPORTE DE MANTENIMIENTO UEAM ===\n\n")
                 for clave, valor in datos_diag.items():
                     f.write(f"{clave.replace('_', ' ').title()}: {valor}\n")
 
             return {
                 "exito": True,
-                "ruta": txt_path,
-                "nombre_archivo": os.path.basename(txt_path),
-                "nota": "ReportLab no instalado; se generó archivo en TXT."
+                "ruta": filepath,
+                "ruta_pdf": filepath,
+                "nombre_archivo": filename,
+                "mensaje": "Reporte exportado con éxito.",
+                "nota": "ReportLab no instalado; se generó archivo en TXT en Descargas."
             }
         except Exception as e:
             return {"exito": False, "mensaje": f"Error en respaldo TXT: {str(e)}"}

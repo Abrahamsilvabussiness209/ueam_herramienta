@@ -1,4 +1,6 @@
-/* Estilos específicos para el Módulo de Diagnóstico y Mantenimiento */
+/* ================================================================= */
+/* ESTILOS ESPECÍFICOS - FUNCIÓN 01: DIAGNÓSTICO Y MANTENIMIENTO      */
+/* ================================================================= */
 
 .form-container {
     max-width: 900px;
@@ -7,7 +9,6 @@
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .page-header {
@@ -45,65 +46,6 @@
     font-size: 1.1rem;
     border-left: 4px solid #3498db;
     padding-left: 10px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #34495e;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #bdc3c7;
-    border-radius: 5px;
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: #3498db;
-    outline: none;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
-}
-
-.btn-primary, .btn-secondary {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    text-align: center;
-    text-decoration: none;
-    margin-top: 15px;
-}
-
-.btn-primary:hover {
-    background-color: #2980b9;
-}
-
-.btn-secondary {
-    background-color: #2ecc71;
-}
-
-.btn-secondary:hover {
-    background-color: #27ae60;
 }
 
 /* Tabla Comparativa Antes / Después */
@@ -186,4 +128,107 @@
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* ================================================================= */
+/* BOTONES DE ACCIÓN PRINCIPAL (Escanear y Ejecutar Mantenimiento)   */
+/* ================================================================= */
+
+#btn-diagnosticar, 
+#btn-mantenimiento {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #3498db !important;
+    color: white !important;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 15px;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#btn-diagnosticar:hover, 
+#btn-mantenimiento:hover {
+    background-color: #2980b9 !important;
+}
+
+#btn-diagnosticar:active, 
+#btn-mantenimiento:active {
+    transform: scale(0.99);
+}
+
+/* ================================================================= */
+/* BOTONES FINALES DE ACCIONES Y DESCARGA DE REPORTE                 */
+/* ================================================================= */
+
+#acciones-finales {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+#acciones-finales button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#acciones-finales button:active {
+    transform: scale(0.98);
+}
+
+#btn-guardar {
+    background-color: #27ae60 !important;
+    color: white;
+}
+
+#btn-guardar:hover {
+    background-color: #219653 !important;
+}
+
+#btn-exportar-pdf {
+    background-color: #e74c3c !important;
+    color: white;
+}
+
+#btn-exportar-pdf:hover {
+    background-color: #c0392b !important;
+}
+
+/* ================================================================= */
+/* ESTILO PROFESIONAL: Botón de Retorno al Dashboard                 */
+/* ================================================================= */
+
+.btn-back-action {
+    display: inline-block;
+    background-color: #ecf0f1 !important;
+    color: #2c3e50 !important;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid #bdc3c7;
+    transition: background-color 0.2s, color 0.2s, transform 0.1s;
+}
+
+.btn-back-action:hover {
+    background-color: #bdc3c7 !important;
+    color: #1a252f !important;
+    text-decoration: none;
+}
+
+.btn-back-action:active {
+    transform: scale(0.98);
 }

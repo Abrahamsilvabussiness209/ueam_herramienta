@@ -1,15 +1,11 @@
-# Arranque main.py del software UEAM
+# Arranque main.py del software UEAM (Estable y sin cierres en navegación)
 import os
-import sys
-import time
 import eel
 from backend.auth import autenticar_usuario
 from backend.diagnostico import ejecutar_mantenimiento_logico, escanear_sistema as escanear_backend
 from backend.documental import listar_documentos, registrar_documento
 from backend.seguridad import generar_respaldo_sistema
 from backend.pdf_generator import generar_pdf_diagnostico
-
-# Callbacks de exposición JS
 
 
 @eel.expose
@@ -47,21 +43,14 @@ def crear_backup():
     return generar_respaldo_sistema()
 
 
-def mantener_servidor_en_navegacion(page, sockets):
-    """Evita la desconexión prematura de Python al navegar entre vistas HTML."""
-    time.sleep(1.5)
-    if not eel._websockets:
-        sys.exit(0)
-
-
 if __name__ == "__main__":
     web_folder = os.path.join(os.path.dirname(__file__), 'web')
     eel.init(web_folder)
 
+    # Iniciamos en login.html absoluto de manera limpia y estable
     eel.start(
         'views/login.html',
         mode='default',
         size=(1024, 728),
-        port=0,
-        close_callback=mantener_servidor_en_navegacion
+        port=8080
     )
