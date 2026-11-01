@@ -1,0 +1,36 @@
+[
+    {
+        "id": 1,
+        "usuario": "estudiante",
+        "nombre": "Estudiante UEAM",
+        "rol": "Estudiante",
+        "password_hash": "",
+        "permisos": [
+            "diagnostico"
+        ]
+    },
+    {
+        "id": 2,
+        "usuario": "secretaria",
+        "nombre": "Secretaría UEAM",
+        "rol": "Secretaria",
+        "password_hash": "secretaria123",
+        "permisos": [
+            "diagnostico",
+            "documental"
+        ]
+    },
+    {
+        "id": 3,
+        "usuario": "admin",
+        "nombre": "Administrador Principal",
+        "rol": "Administrador",
+        "password_hash": "admin123",
+        "permisos": [
+            "diagnostico",
+            "documental",
+            "seguridad",
+            "codigo"
+        ]
+    }
+]

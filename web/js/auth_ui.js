@@ -1,95 +1,75 @@
-// Lógica de interfaz para Autenticación
+// Lógica de autenticación y sincronización de roles con el backend
 
-document.addEventListener('DOMContentLoaded', () => {
-    const formLogin = document.getElementById('form-login');
-    const radioEstudiante = document.getElementById('radio-estudiante');
-    const radioTecnico = document.getElementById('radio-tecnico');
-    const radioAdmin = document.getElementById('radio-admin');
-    
-    const groupUsuario = document.getElementById('group-usuario');
-    const groupPassword = document.getElementById('group-password');
-    const infoEstudiante = document.getElementById('info-estudiante');
-    const btnIngresar = document.getElementById('btn-ingresar');
-    const errorMsg = document.getElementById('error-message');
+document.addEventListener("DOMContentLoaded", () => {
+    const btnLogin = document.getElementById("btn-login");
+    const roleRadios = document.querySelectorAll('input[name="rol"]');
+    const passGroup = document.getElementById("pass-group");
+    const userGroup = document.getElementById("user-group");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const roleNote = document.getElementById("role-note");
 
-    // Cambiar la vista del formulario dinámicamente según el rol seleccionado
-    function actualizarFormulario() {
-        if (radioEstudiante && radioEstudiante.checked) {
-            if (groupUsuario) groupUsuario.style.display = 'none';
-            if (groupPassword) groupPassword.style.display = 'none';
-            if (infoEstudiante) infoEstudiante.style.display = 'block';
-            if (btnIngresar) btnIngresar.textContent = 'Ingresar como Estudiante';
-        } else {
-            if (groupUsuario) groupUsuario.style.display = 'block';
-            if (groupPassword) groupPassword.style.display = 'block';
-            if (infoEstudiante) infoEstudiante.style.display = 'none';
-            if (btnIngresar) btnIngresar.textContent = 'Iniciar Sesión';
-        }
-        if (errorMsg) errorMsg.textContent = '';
-    }
-
-    // Escuchar cambios de opción en los radio buttons
-    if (radioEstudiante) radioEstudiante.addEventListener('change', actualizarFormulario);
-    if (radioTecnico) radioTecnico.addEventListener('change', actualizarFormulario);
-    if (radioAdmin) radioAdmin.addEventListener('change', actualizarFormulario);
-
-    // Inicializar el estado visual del formulario
-    actualizarFormulario();
-
-    // Manejo del envío del formulario
-    if (formLogin) {
-        formLogin.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            let sesionData = null;
-
-            if (radioEstudiante && radioEstudiante.checked) {
-                // Perfil Estudiante: Sin contraseña (Acceso directo únicamente a Diagnóstico)
-                sesionData = {
-                    usuario: "estudiante",
-                    nombre: "Estudiante UEAM",
-                    rol: "Estudiante",
-                    permisos: ["diagnostico"]
-                };
+    // Cambiar comportamiento visual según el radio button seleccionado
+    roleRadios.forEach(radio => {
+        radio.addEventListener("change", (e) => {
+            const selectedRole = e.target.value;
+            if (selectedRole === "Estudiante") {
+                if (passGroup) passGroup.style.display = "none";
+                if (userGroup) userGroup.style.display = "none";
+                if (roleNote) roleNote.innerText = "💡 El perfil de Estudiante no requiere contraseña y sólo tiene acceso al Módulo de Diagnóstico.";
+                if (usernameInput) usernameInput.value = "Estudiante";
+                if (btnLogin) btnLogin.innerText = "Ingresar como Estudiante";
+            } else if (selectedRole === "Secretaria") {
+                if (passGroup) passGroup.style.display = "block";
+                if (userGroup) userGroup.style.display = "block";
+                if (roleNote) roleNote.innerText = "🔐 Acceso para Secretaría: Gestión Documental y Diagnóstico.";
+                if (usernameInput) usernameInput.value = "secretaria";
+                if (passwordInput) passwordInput.value = "";
+                if (btnLogin) btnLogin.innerText = "Ingresar como Secretaría";
             } else {
-                // Perfiles Admin y Técnico/Secretaría
-                const inputUser = document.getElementById('input-usuario');
-                const inputPass = document.getElementById('input-password');
+                if (passGroup) passGroup.style.display = "block";
+                if (userGroup) userGroup.style.display = "block";
+                if (roleNote) roleNote.innerText = "⚡ Acceso de Administrador: Control total del sistema.";
+                if (usernameInput) usernameInput.value = "admin";
+                if (passwordInput) passwordInput.value = "";
+                if (btnLogin) btnLogin.innerText = "Ingresar como Administrador";
+            }
+        });
+    });
 
-                const userVal = inputUser ? inputUser.value.trim() : '';
-                const passVal = inputPass ? inputPass.value.trim() : '';
+    // Acción principal del botón de ingreso
+    if (btnLogin) {
+        btnLogin.addEventListener("click", (e) => {
+            e.preventDefault();
+            const rolSeleccionado = document.querySelector('input[name="rol"]:checked').value;
+            const user = usernameInput ? usernameInput.value.trim() : "Estudiante";
+            const pass = passwordInput ? passwordInput.value.trim() : "";
 
-                if (!userVal || !passVal) {
-                    if (errorMsg) errorMsg.textContent = 'Por favor complete todos los campos.';
-                    return;
-                }
-
-                // Validación local de prueba
-                if (userVal === "admin" && passVal === "admin123") {
-                    sesionData = {
-                        usuario: "admin",
-                        nombre: "Administrador Sistema",
-                        rol: "Admin",
-                        permisos: ["diagnostico", "documental", "seguridad", "codigo"]
-                    };
-                } else if (userVal === "secretaria" && passVal === "userueam123") {
-                    sesionData = {
-                        usuario: "secretaria",
-                        nombre: "Secretaría",
-                        rol: "Tecnico - Secretaria",
-                        permisos: ["diagnostico", "documental", "seguridad"]
-                    };
-                } else {
-                    if (errorMsg) errorMsg.textContent = 'Usuario o contraseña incorrectos.';
-                    return;
-                }
+            // Si es estudiante, entra directo sin consultar backend para agilizar
+            if (rolSeleccionado === "Estudiante") {
+                sessionStorage.setItem("usuario_rol", "Estudiante");
+                sessionStorage.setItem("usuario_nombre", "Estudiante UEAM");
+                window.location.href = "/views/dashboard.html";
+                return;
             }
 
-            // Guardar datos en el almacenamiento local del navegador
-            localStorage.setItem('session_user', JSON.stringify(sesionData));
-
-            // Redireccionar al Dashboard principal
-            window.location.href = 'dashboard.html';
+            // Validación para Secretaría o Administrador mediante Eel
+            if (typeof eel !== "undefined" && eel.login_user) {
+                eel.login_user(user, pass)((respuesta) => {
+                    if (respuesta && respuesta.exito) {
+                        sessionStorage.setItem("usuario_rol", respuesta.rol);
+                        sessionStorage.setItem("usuario_nombre", respuesta.nombre || user);
+                        window.location.href = "/views/dashboard.html";
+                    } else {
+                        alert("Credenciales incorrectas: " + (respuesta ? respuesta.mensaje : "Error al conectar con el servidor."));
+                    }
+                });
+            } else {
+                // Fallback de seguridad en caso de prueba local sin backend activo
+                sessionStorage.setItem("usuario_rol", rolSeleccionado);
+                sessionStorage.setItem("usuario_nombre", user);
+                window.location.href = "/views/dashboard.html";
+            }
         });
     }
 });

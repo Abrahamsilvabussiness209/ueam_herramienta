@@ -1,5 +1,4 @@
-# Arranque main.py del software
-
+# Arranque main.py del software UEAM
 import os
 import sys
 import time
@@ -49,7 +48,7 @@ def crear_backup():
 
 
 def mantener_servidor_en_navegacion(page, sockets):
-    """Evita la desconexión prematura de Python al cambiar de vista HTML."""
+    """Evita la desconexión prematura de Python al navegar entre vistas HTML."""
     time.sleep(1.5)
     if not eel._websockets:
         sys.exit(0)

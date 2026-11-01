@@ -1,12 +1,10 @@
-<!-- Vista del Panel Principal -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UEAM - Panel Principal</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <div class="dashboard-container">
@@ -15,7 +13,7 @@
                 <h2>Herramienta Tecnológica UEAM</h2>
             </div>
             <div class="user-info">
-                <span id="info-rol">Cargando datos...</span>
+                <span id="info-rol">Cargando perfil...</span>
                 <button type="button" id="btn-cerrar-sesion" class="btn-logout">Cerrar Sesión</button>
             </div>
         </header>
@@ -24,25 +22,25 @@
             <!-- MÓDULO 01: DIAGNÓSTICO (Visible para todos) -->
             <div class="module-card" id="card-diagnostico">
                 <h3>Mantenimiento Lógico y Diagnóstico</h3>
-                <p>Diagnóstico preventivo del estado del computador.</p>
-                <a href="fn_diagnostico.html" class="btn-module">Entrar</a>
+                <p>Diagnóstico preventivo del estado del computador y optimización del sistema.</p>
+                <a href="/views/fn_diagnostico.html" class="btn-module">Entrar</a>
             </div>
 
             <!-- MÓDULO 02: DOCUMENTAL (Oculto para Estudiantes) -->
             <div class="module-card" id="card-documental">
                 <h3>Gestión Documental</h3>
                 <p>Registro y consulta de archivos institucionales.</p>
-                <a href="fn_documental.html" class="btn-module">Entrar</a>
+                <a href="/views/fn_documental.html" class="btn-module">Entrar</a>
             </div>
 
             <!-- MÓDULO 03: SEGURIDAD (Oculto para Estudiantes) -->
             <div class="module-card" id="card-seguridad">
                 <h3>Seguridad</h3>
                 <p>Gestión de bitácoras y respaldos del sistema.</p>
-                <a href="fn_seguridad.html" class="btn-module">Entrar</a>
+                <a href="/views/fn_seguridad.html" class="btn-module">Entrar</a>
             </div>
 
-            <!-- MÓDULO 04: CÓDIGO FUENTE (Exclusivo Admin) -->
+            <!-- MÓDULO 04: CÓDIGO FUENTE (Exclusivo Administrador) -->
             <div class="module-card" id="card-codigo">
                 <h3>Inspección de Código Fuente</h3>
                 <p>Acceso administrativo a la estructura del software.</p>
@@ -52,6 +50,6 @@
     </div>
 
     <script src="/eel.js"></script>
-    <script src="../js/dashboard_ui.js"></script>
+    <script src="/js/dashboard_ui.js"></script>
 </body>
 </html>

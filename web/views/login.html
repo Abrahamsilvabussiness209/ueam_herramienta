@@ -1,65 +1,43 @@
-<!-- Vista de Inicio de Sesión -->
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-                              <meta charset="UTF-8">
-                              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                              <title>UEAM - Inicio de Sesión</title>
-                              <link rel="stylesheet" href="../css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UEAM - Inicio de Sesión</title>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
-
 <body class="login-body">
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Herramienta Tecnológica<br><span>UEAM</span></h2>
+            <p class="login-subtitle">Selecciona o ingresa con tu perfil para continuar</p>
 
-                              <div class="login-card">
-                              <h2>Herramienta Tecnológica UEAM</h2>
-                              <p class="subtitle">Selecciona o ingresa con tu perfil para ontinuar</p>
+            <div class="role-selector">
+                <label><input type="radio" name="rol" value="Estudiante" checked> Estudiante</label>
+                <label><input type="radio" name="rol" value="Secretaria"> Secretaría</label>
+                <label><input type="radio" name="rol" value="Administrador"> Administrador</label>
+            </div>
 
-                              <!-- Selección rápida de perfil para facilitar la lógica -->
-                              <div class="role-selector">
-                              <label>
-                              <input type="radio" name="tipo_usuario" value="estudiante" id="radio-estudiante" checked>
-                              Estudiante</label>
+            <div id="role-note" class="role-note">
+                💡 El perfil de Estudiante no requiere contraseña y sólo tiene acceso al Módulo de Diagnóstico.
+            </div>
 
-                              <label>
-                              <input type="radio" name="tipo_usuario" value="tecnico_secretaria" id="radio-tecnico">
-                              Secretaría</label>
+            <!-- Campos ocultos o visibles según el rol -->
+            <div class="form-group" id="user-group" style="display: none;">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" value="Estudiante">
+            </div>
 
-                              <label>
-                              <input type="radio" name="tipo_usuario" value="admin" id="radio-admin">
-                              Administrador</label>
-                                                            </div>
+            <div class="form-group" id="pass-group" style="display: none;">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" placeholder="Ingrese su clave">
+            </div>
 
-                              <form id="form-login">
-                              <!-- Campo Usuario -->
-                              <div class="form-group" id="group-usuario" style="display: none;">
-                              <label
-                              for="input-usuario">Usuario</label>
-                              <input type="text" id="input-usuario" placeholder="Ej: admin o secretaria">
-                              </div>
+            <button type="button" id="btn-login" class="btn-login-action">Ingresar como Estudiante</button>
+        </div>
+    </div>
 
-                              <!-- Campo Contraseña -->
-                              <div class="form-group" id="group-password" style="display: none;">
-                              <label
-                              for="input-password">Contraseña</label>
-                              <input type="password" id="input-password" placeholder="••••••••">
-                              </div>
-
-                              <!-- Mensaje Informativo para el Estudiante -->
-                              <div class="info-box" id="info-estudiante">
-                              <p>💡 <em>El perfil de Estudiante no requiere contraseña y solo tiene acceso al Módulo de Diagnóstico.</em> </p>
-                              </div>
-
-                              <!-- Botón de Envío -->
-                              <button type="submit" class="btn-primary" id="btn-ingresar">Ingresar como Estudiante</button>
-                              </form>
-
-                              <p id="error-message" class="error-msg"></p>
-                              </div>
-
-                              <!-- Script asociado -->
-                              <script src="../js/auth_ui.js"></script>
+    <script src="/eel.js"></script>
+    <script src="../js/auth_ui.js"></script>
 </body>
-
 </html>
