@@ -1,87 +1,201 @@
-/* --- ESTILOS FN 02: GESTIÓN DOCUMENTAL --- */
+/* ================================================================= */
+/* ESTILOS ESPECÍFICOS - FUNCIÓN 02: GESTIÓN DOCUMENTAL              */
+/* ================================================================= */
 
-.documental-container {
-    padding: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.upload-card {
+.form-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
     background: #ffffff;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    border-top: 4px solid #1e3c72;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.upload-card h3 {
-    color: #1e3c72;
-    margin-bottom: 1rem;
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 15px;
+}
+
+.form-card {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e1e8ed;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #2c3e50;
+    margin-top: 10px;
+    margin-bottom: 15px;
     font-size: 1.1rem;
+    border-left: 4px solid #3498db;
+    padding-left: 10px;
 }
 
-.drop-zone {
-    border: 2px dashed #cbd5e1;
-    border-radius: 6px;
-    padding: 2rem;
-    text-align: center;
-    background-color: #f8fafc;
-    cursor: pointer;
-    transition: border-color 0.3s;
-}
-
-.drop-zone:hover {
-    border-color: #1e3c72;
-}
-
-/* Tabla de Documentos */
-.table-container {
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-}
-
-.doc-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-}
-
-.doc-table th {
-    background-color: #1e3c72;
-    color: #ffffff;
-    padding: 0.8rem 1rem;
+/* Campos de Formulario */
+.form-group {
+    margin-bottom: 15px;
     text-align: left;
 }
 
-.doc-table td {
-    padding: 0.8rem 1rem;
-    border-bottom: 1px solid #e2e8f0;
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #34495e;
+    font-size: 0.9rem;
 }
 
-.doc-table tr:hover {
-    background-color: #f1f5f9;
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #ffffff;
 }
 
-/* Botones de acción */
-.btn-action {
-    padding: 0.4rem 0.8rem;
+.form-group input:focus, 
+.form-group select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+/* ================================================================= */
+/* ESTILO MEJORADO: Selector de Archivos Profesional                */
+/* ================================================================= */
+
+.file-input-style {
+    display: block;
+    width: 100%;
+    padding: 10px 12px !important;
+    background: #ffffff !important;
+    border: 2px dashed #cbd5e0 !important;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #4a5568;
+    box-sizing: border-box;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.file-input-style:hover {
+    border-color: #3498db !important;
+    background-color: #f7fafc !important;
+}
+
+/* Personalización avanzada del botón interno del selector de archivos */
+.file-input-style::file-selector-button {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 14px;
     border: none;
     border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 0.8rem;
+    margin-right: 12px;
+    transition: background-color 0.2s;
+}
+
+.file-input-style::file-selector-button:hover {
+    background-color: #2980b9;
+}
+
+/* Botones Principales */
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #3498db !important;
+    color: white !important;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 15px;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+    background-color: #2980b9 !important;
+}
+
+.btn-primary:active {
+    transform: scale(0.99);
+}
+
+/* Tabla Estilizada */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #ffffff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.comparison-table th, .comparison-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.comparison-table th {
+    background-color: #34495e;
+    color: white;
     font-weight: 600;
-    margin-right: 0.3rem;
 }
 
-.btn-download {
-    background-color: #0284c7;
-    color: white;
+/* Botón de Retorno al Dashboard */
+.btn-back-action {
+    display: inline-block;
+    background-color: #ecf0f1 !important;
+    color: #2c3e50 !important;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid #bdc3c7;
+    transition: background-color 0.2s, color 0.2s, transform 0.1s;
 }
 
-.btn-delete {
-    background-color: #e74c3c;
-    color: white;
+.btn-back-action:hover {
+    background-color: #bdc3c7 !important;
+    color: #1a252f !important;
+    text-decoration: none;
+}
+
+/* ================================================================= */
+/* BOTONES DE ACCIÓN EN LOTE (Descargar y Eliminar selección)        */
+/* ================================================================= */
+
+.btn-action-lote {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-action-lote:hover {
+    opacity: 0.9;
+}
+
+.btn-action-lote:active {
+    transform: scale(0.98);
 }

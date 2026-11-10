@@ -1,64 +1,78 @@
-<!-- Vista del Módulo de Gestión Documental -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UEAM - Gestión Documental</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/fn_documental.css">
-
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fn_documental.css">
 </head>
 <body>
-    <header>
-        <h2>Módulo: Gestión Documental</h2>
-        <a href="dashboard.html">Volver al Dashboard</a>
-    </header>
+    <div class="form-container">
+        <div class="page-header">
+            <h2>Módulo: Gestión Documental</h2>
+            <a href="/views/dashboard.html" id="link-volver" class="link-back btn-back-action">← Volver al Dashboard</a>
+        </div>
 
-    <main class="container">
-        <!-- Formulario para agregar registros -->
-        <form id="documento-form" class="card">
-            <h3>Registrar / Adjuntar Documento</h3>
+        <div class="form-card">
+            <h3>Registrar / Adjuntar Documento Institucional</h3>
             
-            <div class="form-group">
-                <label for="doc_nombre">Nombre o Título del Documento:</label>
-                <input type="text" id="doc_nombre" required placeholder="Ej. Informe Técnico de Inventario">
+            <form id="documento-form">
+                <div class="form-group">
+                    <label for="doc_nombre">Nombre o Título del Documento:</label>
+                    <input type="text" id="doc_nombre" required placeholder="Ej. Informe Técnico de Inventario">
+                </div>
+
+                <div class="form-group">
+                    <label for="doc_categoria">Categoría / Departamento:</label>
+                    <select id="doc_categoria">
+                        <option value="Administrativo">Administrativo</option>
+                        <option value="Académico">Académico</option>
+                        <option value="Infraestructura">Infraestructura</option>
+                        <option value="Legal">Legal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="doc_archivo">Seleccionar Archivo Digital (PC):</label>
+                    <input type="file" id="doc_archivo" required class="file-input-style">
+                </div>
+
+                <button type="submit" id="btn-registrar-doc" class="btn-primary">Registrar y Cargar Documento</button>
+            </form>
+        </div>
+
+        <div class="form-card" style="margin-top: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 class="section-title" style="margin: 0; border: none; padding: 0;">Archivos Registrados en el Sistema</h3>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" id="btn-descargar-lote" class="btn-action-lote" style="background-color: #27ae60; color: white;">📥 Descargar Seleccionados</button>
+                    <button type="button" id="btn-eliminar-lote" class="btn-action-lote" style="background-color: #e74c3c; color: white;">🗑️ Eliminar Seleccionados</button>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="doc_categoria">Categoría:</label>
-                <select id="doc_categoria">
-                    <option value="Administrativo">Administrativo</option>
-                    <option value="Académico">Académico</option>
-                    <option value="Mantenimiento">Mantenimiento / Técnico</option>
-                    <option value="Soporte">Soporte</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn-primary">Registrar Documento</button>
-        </form>
-
-        <!-- Tabla de documentos guardados -->
-        <section class="card">
-            <h3>Archivos Registrados en el Sistema</h3>
-            <table border="1" id="tabla-docs" style="width: 100%; border-collapse: collapse; text-align: left;">
+            
+            <table class="comparison-table">
                 <thead>
                     <tr>
+                        <th style="width: 40px; text-align: center;"><input type="checkbox" id="select-all"></th>
                         <th>ID</th>
-                        <th>Nombre</th>
+                        <th>Nombre / Versión</th>
                         <th>Categoría</th>
+                        <th>Archivo Digital</th>
                         <th>Fecha Registro</th>
                         <th>Registrado Por</th>
                     </tr>
                 </thead>
-                <tbody id="lista-documentos">
-                    <!-- Contenido cargado dinámicamente -->
+                <tbody id="tabla-documentos-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: #7f8c8d;">Cargando registros institucionales...</td>
+                    </tr>
                 </tbody>
             </table>
-        </section>
-    </main>
+        </div>
+    </div>
 
     <script src="/eel.js"></script>
-    <script src="../js/documental_ui.js"></script>
+    <script src="/js/documental_ui.js"></script>
 </body>
 </html>
