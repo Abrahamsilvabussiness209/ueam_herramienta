@@ -1,32 +1,86 @@
-<!-- Vista del Módulo de Seguridad y Mantenimiento -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>UEAM - Módulo de Seguridad</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/fn_seguridad.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UEAM - Seguridad de Datos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fn_seguridad.css">
 </head>
 <body>
-    <header>
-        <h2>Módulo: Seguridad y Respaldos</h2>
-        <a href="dashboard.html">Volver al Dashboard</a>
-    </header>
+    <div class="form-container">
+        <div class="page-header">
+            <div>
+                <h2 style="margin: 0;">Módulo: Seguridad y Bóveda de Datos</h2>
+                <span id="badge-perfil-activo" style="font-size: 0.85rem; color: #2980b9; font-weight: 600;">Verificando credenciales de acceso...</span>
+            </div>
+            <a href="/views/dashboard.html" id="link-volver" class="btn-back-action">← Volver al Dashboard</a>
+        </div>
 
-    <main class="container">
-        <section class="card">
-            <h3>Copias de Seguridad de la Plataforma</h3>
-            <p>Al hacer clic en el botón, el sistema creará un archivo comprimido con todos los datos locales (`JSON`, configuraciones y registros de mantenimientos).</p>
+        <!-- Tarjeta 1: Cifrado con Llave Maestra -->
+        <div class="form-card">
+            <h3>Resguardo Criptográfico y Huella Digital (Hash SHA-256)</h3>
+            <p class="subtitle-text">Seleccione un archivo institucional e ingrese su <strong>Llave Maestra de Perfil</strong> (Admin o Secretaría) para cifrar el documento en la bóveda segura y registrar su integridad.</p>
+
+            <form id="seguridad-form">
+                <div class="form-group">
+                    <label for="seg_archivo">Seleccionar Archivo Digital (PC):</label>
+                    <input type="file" id="seg_archivo" required class="file-input-style">
+                </div>
+
+                <div class="form-group">
+                    <label for="seg_clave">Llave Maestra Institucional (Admin / Secretaría):</label>
+                    <input type="password" id="seg_clave" required placeholder="Ingrese su Llave Maestra asignada">
+                </div>
+
+                <button type="submit" id="btn-cifrar-archivo" class="btn-primary">🔒 Cifrar en Bóveda y Generar Hash</button>
+            </form>
+
+            <!-- Barra de Progreso y Resultado Hash -->
+            <div id="panel-progreso" style="display: none; margin-top: 20px;">
+                <label style="font-weight: 600; font-size: 0.85rem; color: #34495e;">Progreso del Procesamiento Criptográfico:</label>
+                <div class="progress-wrapper">
+                    <div id="barra-progreso" class="progress-fill" style="width: 0%;">0%</div>
+                </div>
+
+                <div id="resultado-hash-box" class="hash-result-card" style="display: none;">
+                    <p style="margin: 0 0 6px 0; font-weight: bold; color: #1e3c72;">✅ Archivo Protegido Almacenado en Bóveda</p>
+                    <p style="margin: 4px 0; font-size: 0.85rem;"><strong>Archivo Cifrado:</strong> <span id="out-nombre-enc"></span></p>
+                    <p style="margin: 4px 0; font-size: 0.85rem;"><strong>Huella Digital (SHA-256):</strong></p>
+                    <code id="out-codigo-hash" class="hash-code"></code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: Bóveda Segura y Bitácora JSON -->
+        <div class="form-card" style="margin-top: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 class="section-title" style="margin: 0; border: none; padding: 0;">Bóveda Segura y Bitácora Digital</h3>
+                <button type="button" id="btn-generar-backup" class="btn-backup-mini">📦 Respaldo ZIP Completo</button>
+            </div>
+            <p class="subtitle-text" style="margin-bottom: 10px;">Tanto <strong>Administrador</strong> como <strong>Secretaría</strong> pueden auditar y descifrar archivos de la bóveda utilizando su Llave Maestra asignada.</p>
             
-            <button id="btn-generar-backup" class="btn-primary">Generar Backup Ahora</button>
-            
-            <div id="resultado-backup" style="margin-top: 15px; font-weight: bold;"></div>
-        </section>
-    </main>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Archivo Original</th>
+                        <th>Archivo en Bóveda</th>
+                        <th>Huella Hash</th>
+                        <th>Registrado Por</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-bitacora-body">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #7f8c8d;">Cargando bóveda de seguridad...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script src="/eel.js"></script>
-    <script src="../js/seguridad_ui.js"></script>
+    <script src="/js/seguridad_ui.js"></script>
 </body>
 </html>
