@@ -5,8 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UEAM - Inicio de Sesión</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Fondo con el mural de aviones de la carpeta img/ */
+        body.login-body {
+            background: linear-gradient(
+                rgba(4, 30, 83, 0.868), 
+                rgba(3, 33, 85, 0.78)
+            ), url('../img/MURAL_AVIONES_UEAM.jpeg') no-repeat center center fixed !important;
+            background-size: cover !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Escudo institucional libre en la esquina superior izquierda (sin contenedor) */
+        .login-corner-logo {
+            position: fixed;
+            top: 30px;
+            left: 60px;
+            width: 320px;
+            height: 320px;
+            object-fit: contain;
+            z-index: 1000;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Encabezado Institucional Superior Central */
+        .login-institutional-header {
+            position: absolute;
+            top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .login-institutional-header h1 {
+            color: #d4af37;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 0;
+        }
+
+        .login-institutional-header span {
+            color: #d4af37;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Contenedor del login */
+        .login-container {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body class="login-body">
+    <!-- Escudo limpio en la esquina superior izquierda sin contenedor -->
+    <img src="../img/LOGO_UEAM.png" alt="Escudo UEAM" class="login-corner-logo">
+
+    <!-- Encabezado Superior Central -->
+    <div class="login-institutional-header">
+        <h1>UNIDAD EDUCATIVA AUTÓNOMA MILITAR LIBERTADOR</h1>
+        <span>"FUTURI DEFENSORES PATRIAE"</span>
+    </div>
+
     <div class="login-container">
         <div class="login-card">
             <h2>Herramienta Tecnológica<br><span>UEAM</span></h2>

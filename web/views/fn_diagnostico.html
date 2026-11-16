@@ -6,8 +6,52 @@
     <title>UEAM - Mantenimiento Lógico</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/fn_diagnostico.css">
+
+    <style>
+        /* Fondo y sombra idénticos al dashboard */
+        html body {
+            background: url('../img/MURAL_AVIONES_UEAM.jpeg') no-repeat center center fixed !important;
+            background-size: cover !important;
+            position: relative;
+        }
+        html body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(15, 32, 67, 0.72), 
+                rgba(20, 45, 88, 0.78)
+            );
+            z-index: 0;
+            pointer-events: none;
+        }
+        .form-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Escudo institucional con prioridad máxima */
+        .escudo-modulo {
+            position: fixed !important;
+            top: 20px !important;
+            left: 15px !important;
+            width: 250px !important;
+            height: 250px !important;
+            object-fit: contain !important;
+            z-index: 999999 !important;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            pointer-events: none !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+    </style>
+
 </head>
 <body>
+    <img src="../img/LOGO_UEAM.png" alt="Escudo UEAM" class="escudo-modulo">
     <div class="form-container">
         <div class="page-header">
             <h2>Módulo: Diagnóstico y Mantenimiento de Software</h2>

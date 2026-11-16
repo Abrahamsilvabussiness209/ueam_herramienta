@@ -5,8 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UEAM | Panel Principal</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <style>
+
+        /* Fondo mural de aviones */
+        html body {
+            background: url('/img/MURAL_AVIONES_UEAM.jpeg') no-repeat center center fixed !important;
+            background-size: cover !important;
+            position: relative;
+        }
+
+        /* Capa de sombra azul marino idéntica al login */
+        html body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(15, 32, 67, 0.72), 
+                rgba(20, 45, 88, 0.78)
+            );
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Asegura que las tarjetas queden por encima de la sombra azul */
+        .dashboard-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Escudo institucional en la esquina superior izquierda */
+        .escudo-dashboard {
+            position: fixed;
+            top: 20px;
+            left: 15px;
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            z-index: 1000;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            pointer-events: none;
+        }
+    </style>
+
 </head>
 <body>
+    <!-- Escudo Institucional UEAM -->
+    <img src="/img/LOGO_UEAM.png" alt="Escudo U.E.A.M. El Libertador" class="escudo-dashboard">
+
     <div class="dashboard-container">
         <header class="dashboard-header">
             <div class="header-title">
