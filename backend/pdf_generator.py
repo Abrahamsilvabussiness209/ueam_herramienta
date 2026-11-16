@@ -27,12 +27,12 @@ def generar_pdf_diagnostico(datos_diag: dict) -> dict:
 
     codigo = datos_diag.get('codigo_equipo', 'EQ')
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    
+
     if REPORTLAB_AVAILABLE:
         filename = f"Reporte_Mantenimiento_{codigo}_{timestamp}.pdf"
     else:
         filename = f"Reporte_Mantenimiento_{codigo}_{timestamp}.txt"
-        
+
     filepath = os.path.join(output_dir, filename)
 
     if REPORTLAB_AVAILABLE:

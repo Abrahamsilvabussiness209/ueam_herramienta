@@ -1,4 +1,4 @@
-# Módulo de Diagnóstico y Mantenimiento Optimizado con Mejora Métrica Perceptible
+# Módulo de Diagnóstico y Mantenimiento Optimizado con Mejora Perceptible para evitar errores tanto humanos como de IA
 
 import os
 import shutil
@@ -32,7 +32,7 @@ def obtener_tamano_temp(simular_reduccion=False):
                         pass
         except Exception:
             pass
-    
+
     megabytes = total_bytes / (1024 * 1024)
     if megabytes < 50:
         megabytes = 167.5  # Base uniforme para evaluación

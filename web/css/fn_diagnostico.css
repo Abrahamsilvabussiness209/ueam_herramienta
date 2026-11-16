@@ -1,5 +1,5 @@
 /* ================================================================= */
-/* ESTILOS ESPECÍFICOS - FUNCIÓN 01: DIAGNÓSTICO Y MANTENIMIENTO      */
+/* Estilos Especificos - FUNCIÓN 01: DIAGNÓSTICO Y MANTENIMIENTO      */
 /* ================================================================= */
 
 .form-container {
@@ -131,7 +131,7 @@
 }
 
 /* ================================================================= */
-/* BOTONES DE ACCIÓN PRINCIPAL (Escanear y Ejecutar Mantenimiento)   */
+/* Botones de Acción Principal (Escanear y Ejecutar Mantenimiento)   */
 /* ================================================================= */
 
 #btn-diagnosticar, 
@@ -163,7 +163,7 @@
 }
 
 /* ================================================================= */
-/* BOTONES FINALES DE ACCIONES Y DESCARGA DE REPORTE                 */
+/* Botones de Acciones para la Descarga de Reporte                 */
 /* ================================================================= */
 
 #acciones-finales {
@@ -207,7 +207,7 @@
 }
 
 /* ================================================================= */
-/* ESTILO PROFESIONAL: Botón de Retorno al Dashboard                 */
+/* Botón de Retorno al Dashboard                 */
 /* ================================================================= */
 
 .btn-back-action {

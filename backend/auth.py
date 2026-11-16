@@ -8,6 +8,7 @@ USUARIOS_FILE = os.path.join(
     os.path.dirname(__file__), '..', 'storage', 'system_data', 'usuarios.json'
 )
 
+
 def inicializar_usuarios_por_defecto():
     """Crea la estructura de usuarios por defecto si el archivo no existe o está vacío."""
     usuarios_default = [
@@ -36,7 +37,7 @@ def inicializar_usuarios_por_defecto():
             "permisos": ["diagnostico", "documental", "seguridad", "codigo"]
         }
     ]
-    
+
     os.makedirs(os.path.dirname(USUARIOS_FILE), exist_ok=True)
     with open(USUARIOS_FILE, 'w', encoding='utf-8') as f:
         json.dump(usuarios_default, f, indent=4, ensure_ascii=False)
@@ -55,6 +56,8 @@ def cargar_usuarios():
             return data
     except Exception:
         return inicializar_usuarios_por_defecto()
+
+# Guarda los 3 perfiles de usuarios disponibles
 
 
 def guardar_usuarios_seguro(usuarios):

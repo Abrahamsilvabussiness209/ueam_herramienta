@@ -1,4 +1,4 @@
-# Módulo de gestión documental ampliado (Descarga y Eliminación por lote)
+# Módulo de gestión documental ampliado Descarga y Eliminación por lote er cual puede hacerses por selección múltiple
 
 import os
 import json
@@ -109,10 +109,10 @@ def descargar_archivo_local(nombre_archivo: str):
     try:
         descargas_dir = os.path.join(os.path.expanduser("~"), "Downloads")
         os.makedirs(descargas_dir, exist_ok=True)
-        
+
         # Generar un archivo de respaldo o simular descarga local exitosa hacia Descargas
         ruta_destino = os.path.join(descargas_dir, nombre_archivo)
-        
+
         # Creamos una copia física del archivo de muestra en Descargas si no existe
         with open(ruta_destino, "w", encoding="utf-8") as f:
             f.write(f"=== REPORTE INSTITUCIONAL UEAM ===\nArchivo recuperado: {nombre_archivo}\nFecha: {datetime.now()}")
