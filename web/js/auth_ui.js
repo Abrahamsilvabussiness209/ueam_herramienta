@@ -1,4 +1,4 @@
-// Lógica de autenticación y sincronización de roles con el backend
+// Lógica de autenticación, sincronización de roles y verificación matemática con el backend
 
 document.addEventListener("DOMContentLoaded", () => {
     const btnLogin = document.getElementById("btn-login");
@@ -8,6 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
     const roleNote = document.getElementById("role-note");
+    const mathQuestion = document.getElementById("math-question");
+    const mathAnswer = document.getElementById("math-answer");
+
+    // Generar operación matemática aleatoria al cargar la página
+    let num1 = Math.floor(Math.random() * 8) + 2; // Número entre 2 y 9
+    let num2 = Math.floor(Math.random() * 6) + 1; // Número entre 1 y 6
+    let resultadoCorrecto = num1 + num2;
+
+    if (mathQuestion) {
+        mathQuestion.innerText = `Verificación de seguridad: ¿Cuánto es ${num1} + ${num2}?`;
+    }
 
     // Cambiar comportamiento visual según el radio button seleccionado
     roleRadios.forEach(radio => {
@@ -37,10 +48,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Acción principal del botón de ingreso
+    // Acción principal del botón de ingreso con validación matemática
     if (btnLogin) {
         btnLogin.addEventListener("click", (e) => {
             e.preventDefault();
+
+            // Validar respuesta de la verificación matemática
+            const respuestaUsuario = parseInt(mathAnswer ? mathAnswer.value.trim() : "");
+            if (isNaN(respuestaUsuario) || respuestaUsuario !== resultadoCorrecto) {
+                alert("⚠️ Error de seguridad: La respuesta de la verificación matemática es incorrecta. Inténtalo de nuevo.");
+                if (mathAnswer) {
+                    mathAnswer.value = "";
+                    mathAnswer.focus();
+                }
+                return; // Detiene el acceso inmediatamente si falla
+            }
+
             const rolSeleccionado = document.querySelector('input[name="rol"]:checked').value;
             const user = usernameInput ? usernameInput.value.trim() : "Estudiante";
             const pass = passwordInput ? passwordInput.value.trim() : "";

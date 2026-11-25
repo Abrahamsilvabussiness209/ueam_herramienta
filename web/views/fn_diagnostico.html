@@ -9,12 +9,7 @@
 
     <style>
         /* Fondo y sombra idénticos al dashboard */
-        html body {
-            background: url('../img/MURAL_AVIONES_UEAM.jpeg') no-repeat center center fixed !important;
-            background-size: cover !important;
-            position: relative;
-        }
-        html body::before {
+            html body::before {
             content: "";
             position: fixed;
             top: 0;
@@ -25,9 +20,8 @@
                 rgba(15, 32, 67, 0.72), 
                 rgba(20, 45, 88, 0.78)
             );
-            z-index: 0;
-            pointer-events: none;
-        }
+            }
+
         .form-container {
             position: relative;
             z-index: 1;
@@ -50,7 +44,7 @@
     </style>
 
 </head>
-<body>
+<body class="modulo-diagnostico">
     <img src="../img/LOGO_UEAM.png" alt="Escudo UEAM" class="escudo-modulo">
     <div class="form-container">
         <div class="page-header">

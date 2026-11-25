@@ -2,12 +2,6 @@
 /* ESTILOS GLOBALES Y DE NAVEGACIÓN DE TODO EL SOFTWARE- SISTEMA UEAM * NO BORRAR MUSHACHOS!!!*/
 /* ================================================================= */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f6f9;
@@ -243,9 +237,28 @@ body {
 /* IDENTIDAD VISUAL INSTITUCIONAL GLOBAL (FONDO MURAL + ESCUDO)      */
 /* ================================================================= */
 
-/* Fondo directo del mural de aviones en el Dashboard y todas las funciones */
-body:not(.login-body) {
+/* Fondo del Dashboard (Mural de aviones intacto) */
+body:not(.login-body):not(.modulo-diagnostico):not(.modulo-documental):not(.modulo-seguridad) {
     background: url('../img/MURAL_AVIONES_UEAM.jpeg') no-repeat center center fixed !important;
+    background-size: cover !important;
+    min-height: 100vh;
+}
+
+/* Fondos independientes y exclusivos para cada módulo de funciones */
+body.modulo-diagnostico {
+    background: url('../img/AULA_CLASE_EST_UEAM.jpeg') no-repeat center center fixed !important;
+    background-size: cover !important;
+    min-height: 100vh;
+}
+
+body.modulo-documental {
+    background: url('../img/MUJERES_EST_UEAM.jpeg') no-repeat center center fixed !important;
+    background-size: cover !important;
+    min-height: 100vh;
+}
+
+body.modulo-seguridad {
+    background: url('../img/EST_SUCIOS_CAMPO.jpeg') no-repeat center center fixed !important;
     background-size: cover !important;
     min-height: 100vh;
 }
