@@ -7,7 +7,7 @@ import shutil
 import hashlib
 from datetime import datetime
 import eel
-from db import obtener_conexion  # <-- Conexión a la base de datos ueam_db (puerto 3307)
+from db import obtener_conexion  # <-- Conexión a la base de datos ueam_dh (puerto 3307)
 
 STORAGE_DIR = os.path.join(os.path.dirname(__file__), '..', 'storage')
 BACKUP_DIR = os.path.join(STORAGE_DIR, 'backups')
@@ -59,7 +59,7 @@ def _procesar_bytes_simetrico(datos_bytes: bytes) -> bytes:
 
 @eel.expose
 def generar_respaldo_sistema():
-    """Genera un archivo comprimido (.zip) con la copia de todos los datos en storage/ y registra en la BD."""
+    """Genera un archivo comprimido (.zip) con la copia de todos los datos en storage/."""
     try:
         asegurar_directorios_seguridad()
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -67,20 +67,6 @@ def generar_respaldo_sistema():
         destino_zip = os.path.join(BACKUP_DIR, nombre_archivo)
 
         shutil.make_archive(destino_zip, 'zip', STORAGE_DIR)
-        
-        # --- Integración SQL: Registrar el respaldo generado ---
-        conexion = obtener_conexion()
-        if conexion:
-            try:
-                with conexion.cursor() as cursor:
-                    sql = "INSERT INTO respaldos_sistema (nombre_archivo, ruta_archivo) VALUES (%s, %s)"
-                    cursor.execute(sql, (f"{nombre_archivo}.zip", f"{destino_zip}.zip"))
-                    conexion.commit()
-            except Exception as sql_err:
-                print(f"Aviso BD respaldo: {sql_err}")
-            finally:
-                conexion.close()
-        # -----------------------------------------------------
 
         return {
             "exito": True,
@@ -94,7 +80,7 @@ def generar_respaldo_sistema():
 
 @eel.expose
 def proteger_archivo_seguridad(nombre_archivo: str, contenido_base64: str, llave_maestra: str, usuario: str):
-    """Calcula Hash SHA-256, cifra bytes (.ueam_enc) y registra en bitácora local y MySQL."""
+    """Calcula Hash SHA-256, cifra bytes (.ueam_enc) y registra en bitácora local y MySQL (tabla boveda_seguridad)."""
     asegurar_directorios_seguridad()
 
     if not _validar_llave_maestra(llave_maestra):
@@ -118,29 +104,30 @@ def proteger_archivo_seguridad(nombre_archivo: str, contenido_base64: str, llave
 
         fecha_hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # --- Integración SQL: Guardar en la tabla boveda_seguridad ---
+        # --- Integración SQL con la estructura real de 'boveda_seguridad' ---
         conexion = obtener_conexion()
         if conexion:
             try:
                 with conexion.cursor() as cursor:
                     sql = """
                         INSERT INTO boveda_seguridad 
-                        (archivo_original, archivo_protegido, hash_sha256, fecha_hora, usuario) 
-                        VALUES (%s, %s, %s, %s, %s)
+                        (archivo_original, archivo_boveda, huella_hash, accion, usuario_id, fecha_registro) 
+                        VALUES (%s, %s, %s, %s, %s, %s)
                     """
                     cursor.execute(sql, (
                         nombre_archivo,
                         nombre_protegido,
                         huella_hash,
-                        fecha_hora_actual,
-                        perfil_real
+                        "Cifrado y Resguardo",
+                        1,  # usuario_id por defecto
+                        fecha_hora_actual
                     ))
                     conexion.commit()
             except Exception as sql_err:
                 print(f"Aviso BD boveda: {sql_err}")
             finally:
                 conexion.close()
-        # -----------------------------------------------------------
+        # --------------------------------------------------------------------
 
         bitacora = []
         if os.path.exists(BITACORA_FILE):
@@ -215,12 +202,12 @@ def listar_bitacora_seguridad():
     """Retorna los registros de la bitácora de seguridad desde MySQL o JSON de respaldo."""
     asegurar_directorios_seguridad()
 
-    # --- Intentar obtener desde MySQL primero ---
+    # --- Intentar obtener desde MySQL primero usando los campos reales de boveda_seguridad ---
     conexion = obtener_conexion()
     if conexion:
         try:
             with conexion.cursor() as cursor:
-                sql = "SELECT id, archivo_original, archivo_protegido, hash_sha256, fecha_hora, usuario FROM boveda_seguridad ORDER BY id DESC"
+                sql = "SELECT id, archivo_original, archivo_boveda AS archivo_protegido, huella_hash AS hash_sha256, fecha_registro AS fecha_hora, 'Administrador' AS usuario FROM boveda_seguridad ORDER BY id DESC"
                 cursor.execute(sql)
                 registros = cursor.fetchall()
                 for reg in registros:
@@ -231,7 +218,7 @@ def listar_bitacora_seguridad():
             print(f"Error consultando bitácora en BD, usando JSON: {e}")
         finally:
             conexion.close()
-    # ---------------------------------------------
+    # -----------------------------------------------------------------------------------------
 
     if not os.path.exists(BITACORA_FILE):
         return {"exito": True, "registros": []}

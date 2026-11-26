@@ -1,10 +1,10 @@
-# Módulo de gestión documental ampliado Descarga y Eliminación por lote er cual puede hacerses por selección múltiple
+# Módulo de gestión documental ampliado Descarga y Eliminación por lote el cual puede hacerse por selección múltiple
 
 import os
 import json
 from datetime import datetime
 import eel
-from db import obtener_conexion  # <-- Conexión a la base de datos ueam_dh (puerto 3307)
+from db import obtener_conexion  # <-- Conexión segura a la base de datos ueam_dh (puerto 3307)
 
 DOCS_DIR = os.path.join(os.path.dirname(__file__), '..', 'storage', 'documentos')
 META_DIR = os.path.join(os.path.dirname(__file__), '..', 'storage', 'system_data')
@@ -20,15 +20,15 @@ def asegurar_directorios():
 
 @eel.expose
 def listar_documentos():
-    """Retorna el inventario de documentos almacenados localmente y en base de datos."""
+    """Retorna el inventario de documentos almacenados en MySQL o respaldos locales."""
     asegurar_directorios()
 
-    # Intentar obtener desde MySQL primero
+    # --- Intentar obtener desde MySQL primero usando nombres exactos de columnas ---
     conexion = obtener_conexion()
     if conexion:
         try:
             with conexion.cursor() as cursor:
-                sql = "SELECT id, nombre AS nombre_doc, categoria, archivo, version, fecha_registro, registrado_por FROM documentos_institucionales ORDER BY id DESC"
+                sql = "SELECT id, nombre, categoria, archivo, version, fecha_registro, registrado_por FROM documentos_institucionales ORDER BY id DESC"
                 cursor.execute(sql)
                 documentos = cursor.fetchall()
                 for doc in documentos:
@@ -36,11 +36,11 @@ def listar_documentos():
                         doc["fecha_registro"] = doc["fecha_registro"].strftime("%Y-%m-%d %H:%M:%S")
                 return {"exito": True, "documentos": documentos}
         except Exception as e:
-            print(f"Error consultando BD, usando respaldo local: {e}")
+            print(f"Error consultando documentos en BD, usando JSON: {e}")
         finally:
             conexion.close()
+    # ---------------------------------------------
 
-    # Fallback a JSON si la BD no está disponible
     if not os.path.exists(META_FILE):
         return {"exito": True, "documentos": []}
 
@@ -54,14 +54,14 @@ def listar_documentos():
 
 @eel.expose
 def registrar_documento(nombre_doc: str, Categoria: str, nombre_archivo: str, usuario_carga: str):
-    """Registra metadatos aplicando control de versiones lógico (V1.0 a V2.0) y persistencia en SQL."""
+    """Registra metadatos aplicando control de versiones lógico (V1.0 a V2.0) y persistencia en MySQL."""
     asegurar_directorios()
 
     documentos = []
     conexion = obtener_conexion()
     version_actual = "V1.0"
     
-    # Calcular versión consultando la base de datos
+    # Calcular versión consultando la base de datos si está disponible
     if conexion:
         try:
             with conexion.cursor() as cursor:
@@ -82,7 +82,7 @@ def registrar_documento(nombre_doc: str, Categoria: str, nombre_archivo: str, us
     fecha_reg = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     usuario_val = usuario_carga if usuario_carga else "Administrador"
 
-    # Insertar en MySQL
+    # --- Insertar en la tabla real 'documentos_institucionales' de MySQL ---
     if conexion:
         try:
             with conexion.cursor() as cursor:
@@ -106,9 +106,10 @@ def registrar_documento(nombre_doc: str, Categoria: str, nombre_archivo: str, us
                 }
                 return {"exito": True, "mensaje": f"Documento registrado con versión {version_actual}.", "documento": nuevo_doc}
         except Exception as sql_err:
-            print(f"Error al insertar en MySQL: {sql_err}")
+            print(f"Error al insertar documento en MySQL: {sql_err}")
         finally:
             conexion.close()
+    # ----------------------------------------------------------------------
 
     # Respaldo local en archivo JSON si la BD no está disponible
     if os.path.exists(META_FILE):
@@ -142,7 +143,7 @@ def registrar_documento(nombre_doc: str, Categoria: str, nombre_archivo: str, us
 
 @eel.expose
 def eliminar_documentos(ids_a_eliminar: list):
-    """Elimina uno o varios documentos seleccionados del sistema y del JSON maestro."""
+    """Elimina uno o varios documentos seleccionados de MySQL y del JSON maestro."""
     asegurar_directorios()
     
     # Eliminar en MySQL por lote

@@ -65,18 +65,20 @@ def escanear_sistema(codigo_equipo):
             nivel_alerta = "AMARILLO"
             evaluacion = "Rendimiento Moderado: Requiere Limpieza"
 
-        # --- Integración SQL con tu tabla real 'mantenimiento' ---
+        # --- Integración SQL con la estructura real de la tabla 'mantenimiento' ---
         conexion = obtener_conexion()
         if conexion:
             try:
                 with conexion.cursor() as cursor:
                     sql = """
                         INSERT INTO mantenimiento 
-                        (codigo_mantenimiento, tipo_mantenimiento, detalle_mantenimiento, resultados) 
-                        VALUES (%s, %s, %s, %s)
+                        (codigo_mantenimiento, usuario_id, equipo_id, tipo_mantenimiento, detalle_mantenimiento, resultados) 
+                        VALUES (%s, %s, %s, %s, %s, %s)
                     """
                     cursor.execute(sql, (
                         str(codigo_equipo), 
+                        1,  # usuario_id por defecto
+                        1,  # equipo_id por defecto
                         f"Escaneo - {nivel_alerta}", 
                         evaluacion, 
                         f"RAM: {ram_pct}%, Disco: {disco_uso_pct}%, Cache: {cache_mb}MB, Procesos: {procesos}"
@@ -145,18 +147,20 @@ def ejecutar_mantenimiento_logico(datos):
 
     ram_mejorada = max(42.0, round(mem.percent - 5.2, 1))
 
-    # --- Integración SQL con tu tabla real 'mantenimiento' ---
+    # --- Integración SQL con la estructura real de la tabla 'mantenimiento' ---
     conexion = obtener_conexion()
     if conexion:
         try:
             with conexion.cursor() as cursor:
                 sql = """
                     INSERT INTO mantenimiento 
-                    (codigo_mantenimiento, tipo_mantenimiento, detalle_mantenimiento, resultados) 
-                    VALUES (%s, %s, %s, %s)
+                    (codigo_mantenimiento, usuario_id, equipo_id, tipo_mantenimiento, detalle_mantenimiento, resultados) 
+                    VALUES (%s, %s, %s, %s, %s, %s)
                 """
                 cursor.execute(sql, (
                     "EQ-GENERAL", 
+                    1,  # usuario_id por defecto
+                    1,  # equipo_id por defecto
                     str(tipo), 
                     "Optimización Exitosa: Rendimiento Restablecido", 
                     f"RAM Post: {ram_mejorada}%, Disco: {round(disco.percent, 1)}%, Cache: {cache_mb}MB, Procesos: {procesos}"
