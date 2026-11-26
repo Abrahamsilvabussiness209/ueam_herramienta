@@ -1,6 +1,7 @@
 # Arranque main.py del software UEAM (Estable y sin cierres en navegación)
 import os
 import eel
+from db import obtener_conexion  # <-- Importamos tu conexión a MySQL
 from backend.auth import autenticar_usuario
 from backend.diagnostico import ejecutar_mantenimiento_logico, escanear_sistema as escanear_backend
 from backend.documental import listar_documentos, registrar_documento
@@ -44,6 +45,14 @@ def crear_backup():
 
 
 if __name__ == "__main__":
+    # Verificación rápida de la conexión a MySQL antes de levantar Eel
+    conexion_test = obtener_conexion()
+    if conexion_test:
+        print("¡Conexión a la base de datos 'ueam_dh' establecida correctamente!")
+        conexion_test.close()
+    else:
+        print("Advertencia: No se pudo conectar a la base de datos en XAMPP. Revisa que esté encendido.")
+
     web_folder = os.path.join(os.path.dirname(__file__), 'web')
     eel.init(web_folder)
 

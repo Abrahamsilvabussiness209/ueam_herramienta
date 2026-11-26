@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from db import obtener_conexion  # <-- Conexión a la base de datos ueam_dh (puerto 3307)
 
 # Intentar importar reportlab; si no está instalado, se utiliza un método alternativo seguro.
 try:
@@ -15,7 +16,7 @@ except ImportError:
 def generar_pdf_diagnostico(datos_diag: dict) -> dict:
     """
     Genera un archivo PDF (o TXT de respaldo) con el reporte técnico del mantenimiento/diagnóstico
-    directamente en la carpeta Descargas del usuario.
+    directamente en la carpeta Descargas del usuario y registra la auditoría en la base de datos.
     """
     if not isinstance(datos_diag, dict):
         datos_diag = {}
@@ -34,6 +35,41 @@ def generar_pdf_diagnostico(datos_diag: dict) -> dict:
         filename = f"Reporte_Mantenimiento_{codigo}_{timestamp}.txt"
 
     filepath = os.path.join(output_dir, filename)
+
+    # Extraer valores para la base de datos
+    fecha_reporte = datos_diag.get("fecha", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    sistema_op = datos_diag.get("sistema_operativo", "N/A")
+    tipo_mant = datos_diag.get("tipo_mantenimiento", "Preventivo")
+    estado_gen = datos_diag.get("estado_general", "Operativo")
+    responsable = datos_diag.get("responsable", "Estudiante")
+    observaciones = datos_diag.get("observaciones_tecnicas", "Sin detalles adicionales")
+
+    # --- Integración SQL: Guardar registro del reporte en la BD ---
+    conexion = obtener_conexion()
+    if conexion:
+        try:
+            with conexion.cursor() as cursor:
+                sql = """
+                    INSERT INTO reportes_diagnostico 
+                    (codigo_equipo, fecha, sistema_operativo, tipo_mantenimiento, estado_general, responsable, observaciones_tecnicas, archivo_generado) 
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                cursor.execute(sql, (
+                    str(codigo),
+                    str(fecha_reporte),
+                    str(sistema_op),
+                    str(tipo_mant),
+                    str(estado_gen),
+                    str(responsable),
+                    str(observaciones),
+                    str(filename)
+                ))
+                conexion.commit()
+        except Exception as sql_err:
+            print(f"Aviso de base de datos en PDF (no afecta la exportación): {sql_err}")
+        finally:
+            conexion.close()
+    # -------------------------------------------------------------
 
     if REPORTLAB_AVAILABLE:
         try:
@@ -57,13 +93,13 @@ def generar_pdf_diagnostico(datos_diag: dict) -> dict:
 
             # Tabla de Datos
             data = [
-                ["Fecha / Hora:", datos_diag.get("fecha", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))],
-                ["Código de Equipo:", datos_diag.get("codigo_equipo", "N/A")],
-                ["Sistema Operativo:", datos_diag.get("sistema_operativo", "N/A")],
-                ["Tipo de Mantenimiento:", datos_diag.get("tipo_mantenimiento", "Preventivo")],
-                ["Estado General:", datos_diag.get("estado_general", "Operativo")],
-                ["Técnico / Responsable:", datos_diag.get("responsable", "Estudiante")],
-                ["Observaciones:", datos_diag.get("observaciones_tecnicas", "Sin detalles adicionales")]
+                ["Fecha / Hora:", fecha_reporte],
+                ["Código de Equipo:", codigo],
+                ["Sistema Operativo:", sistema_op],
+                ["Tipo de Mantenimiento:", tipo_mant],
+                ["Estado General:", estado_gen],
+                ["Técnico / Responsable:", responsable],
+                ["Observaciones:", observaciones]
             ]
 
             t = Table(data, colWidths=[150, 350])

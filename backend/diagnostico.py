@@ -6,6 +6,7 @@ import subprocess
 import gc
 import ctypes
 import psutil
+from db import obtener_conexion  # <-- Conexión segura a la base de datos ueam_dh (puerto 3307)
 
 
 def obtener_tamano_temp(simular_reduccion=False):
@@ -64,6 +65,29 @@ def escanear_sistema(codigo_equipo):
             nivel_alerta = "AMARILLO"
             evaluacion = "Rendimiento Moderado: Requiere Limpieza"
 
+        # --- Integración SQL con tu tabla real 'mantenimiento' ---
+        conexion = obtener_conexion()
+        if conexion:
+            try:
+                with conexion.cursor() as cursor:
+                    sql = """
+                        INSERT INTO mantenimiento 
+                        (codigo_mantenimiento, tipo_mantenimiento, detalle_mantenimiento, resultados) 
+                        VALUES (%s, %s, %s, %s)
+                    """
+                    cursor.execute(sql, (
+                        str(codigo_equipo), 
+                        f"Escaneo - {nivel_alerta}", 
+                        evaluacion, 
+                        f"RAM: {ram_pct}%, Disco: {disco_uso_pct}%, Cache: {cache_mb}MB, Procesos: {procesos}"
+                    ))
+                    conexion.commit()
+            except Exception as sql_err:
+                print(f"Aviso de base de datos (no afecta la ejecución): {sql_err}")
+            finally:
+                conexion.close()
+        # -----------------------------------------------------------------
+
         return {
             "exito": True,
             "antes": {
@@ -120,6 +144,29 @@ def ejecutar_mantenimiento_logico(datos):
     cache_mb = obtener_tamano_temp(simular_reduccion=True)
 
     ram_mejorada = max(42.0, round(mem.percent - 5.2, 1))
+
+    # --- Integración SQL con tu tabla real 'mantenimiento' ---
+    conexion = obtener_conexion()
+    if conexion:
+        try:
+            with conexion.cursor() as cursor:
+                sql = """
+                    INSERT INTO mantenimiento 
+                    (codigo_mantenimiento, tipo_mantenimiento, detalle_mantenimiento, resultados) 
+                    VALUES (%s, %s, %s, %s)
+                """
+                cursor.execute(sql, (
+                    "EQ-GENERAL", 
+                    str(tipo), 
+                    "Optimización Exitosa: Rendimiento Restablecido", 
+                    f"RAM Post: {ram_mejorada}%, Disco: {round(disco.percent, 1)}%, Cache: {cache_mb}MB, Procesos: {procesos}"
+                ))
+                conexion.commit()
+        except Exception as sql_err:
+            print(f"Aviso de base de datos (no afecta la ejecución): {sql_err}")
+        finally:
+            conexion.close()
+    # ------------------------------------------------------------------------
 
     return {
         "exito": True,
